@@ -1,0 +1,13 @@
+{% extends '../layout/base.html' %}
+
+{% block title %}Artemys - Request Denied{% endblock %}
+
+{% block main_content %}
+  <section class="container py-5 h-20 d-flex flex-column justify-content-evenly align-items-center">
+    <h1 class="text-primary">Por favor inicie sesión</h1>
+    <div class="d-flex justify-content-center align-items-center gap-4 py-3">
+      <a class="btn btn-primary" href="{% url 'login' %}">Iniciar de sesión</a> 
+      <a class="btn btn-outline-primary" href="{% url 'index' %}">Página Principal</a>
+    </div>
+  </section>
+{% endblock main_content %}

@@ -1,0 +1,63 @@
+{% load static %}
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-body pb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img class="img-fluid" src="{% static 'img/artemysLogo.png'%}" alt="Logo Artemys" width="184" height="78" >
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse pb-3 mt-4 rounded-bottom justify-content-lg-evenly pb-lg-0 mt-lg-0 shadow-new shadow-lg-none" id="navbarHeader">
+        <ul class="navbar-nav mb-2 mb-lg-0 px-0 px-sm-2">
+          <li class="nav-item text-center">
+            <a class="nav-link text-primary" href="{% url 'info' %}">Sobre Nosotros</a>
+          </li>
+          <li class="nav-item text-center">
+            <a class="nav-link text-primary" href="#Contactos">Contactos</a>
+          </li>
+          <li class="nav-item text-center">
+            <a class="nav-link text-primary" href="{% url 'servicios' %}">Servicios</a>
+          </li>
+          {% comment %}
+            {% url 'turnos_calendar' %}
+          {% endcomment %}
+          {% comment %}
+          Cambiar a: "Mis Turnos" (Actuales y los siguientes: sobre un calendario como Popup)
+          <li class="nav-item text-center">
+            <a class="nav-link text-primary" href="#">Turnos</a>
+          </li>
+          {% endcomment %}
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_staff %}
+              {% comment %}
+                {% url 'turnos' %}
+                {% url 'turno' %}
+              {% endcomment %}
+              <li class="nav-item text-center">
+                <a class="nav-link text-primary" href="">Lista de Turnos</a>
+              </li>
+            {% endif %}
+            <li class="nav-item text-center">
+              <a class="nav-link text-primary" href="">Pedir Turno</a>
+            </li>
+          {% else %}
+            <li class="nav-item text-center">
+              <a class="nav-link text-primary" href="{% url 'registro' %}">Registrarse</a>
+            </li>
+          {% endif %}
+        </ul>
+        <div class="d-flex w-fit mx-auto mx-lg-0">
+          {% if request.user.is_authenticated %}
+            <a class="btn btn-primary" href="{% url 'logout' %}">Desconectarse</a>
+          {% else %}
+            {% if request.resolver_match.url_name != 'login' %}
+              <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesion</a>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    <title>Recuperar Contraseña</title>
+{% endblock %}
+
+{% block content %}
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h2>Su contraseña se reestableció correctamente </h2>
+                <div class="center">
+                    <a href="{% url 'login' %}"> <button class="btn"> Iniciar Sesión</button></a>
+                </div>
+                
+                    
+               
+            </div>
+        </div>
+    </section>
+{% endblock %}

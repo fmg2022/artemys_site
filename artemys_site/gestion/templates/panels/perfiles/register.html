@@ -1,0 +1,34 @@
+{% extends '../../layout/base.html' %}
+
+{% block title %}Formulario de Registro{% endblock %}
+
+{% block main_content %}
+  <section class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="w-75 p-3 d-flex flex-column gap-3 text-center border border-2 border-primary-site rounded-5 shadow-primary">
+      <h2>Bienvenido</h2>
+      <form class="d-flex flex-column gap-2 px-sm-2 px-md-4" method="POST">
+        {% csrf_token %}
+        <div class="d-grid g-col-lg-2 gap-4">
+          {% for form in forms %}
+            {% for field in form %}
+              {{ field.errors }}
+              <label class="fs-6 text-start" id="{{ field.id_for_label }}">
+                {{ field.label }}
+                {{ field }}
+              </label>
+            {% endfor %}
+          {% endfor %}
+        </div>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center py-3">
+          <button type="submit" class="btn btn-primary w-fit">Registrarse</button>
+          <a class="btn btn-outline-primary w-fit" href="{% url 'index' %}">Cancelar</a>
+        </div>
+      </form>
+      <div class="center">
+        <p>¿Ya tienes cuenta? 
+          <a href="{% url 'login' %}"class="text-decoration-link">Iniciar Sesión</a>
+        </p>
+      </div>
+    </div>
+  </section>
+{% endblock main_content %}

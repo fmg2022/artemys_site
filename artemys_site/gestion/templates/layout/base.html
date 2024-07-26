@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {# Load the tag library #}
+    {% load bootstrap5 %}
+
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    {% load static %}
+
+    {% block extra_css %} {% endblock extra_css%}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %} ">
+    <link rel="shortcut icon" href="{% static 'img/logoPequeño.png' %}" type="image/x-icon">
+
+    {% comment %} <script src="https://kit.fontawesome.com/3784acb1e6.js" crossorigin="anonymous"></script> {% endcomment %}
+
+    <title>{% block title %}Artemys{% endblock %}</title>
+  </head>
+
+  <body>
+    {% include "_partials/header.html" %}
+
+    <main class="d-flex flex-column bg-body w-100">
+      {% block main_content %}{% endblock main_content %}
+    </main>
+    
+    {% include "_partials/footer.html" %}
+    
+    <script type="text/javascript">
+      const $navBar = document.getElementById('navbarHeader')
+      
+      const sizeBreakPoint = () => {
+        if (window.innerWidth >= 992 && $navBar.classList.contains('bg-secondary')) {
+          $navBar.classList.remove('bg-secondary', 'bg-gradient')
+          console.log('entro en el control REMOVE')
+        }
+    
+        if (window.innerWidth < 992 && !$navBar.classList.contains('bg-secondary')) {
+          $navBar.classList.add('bg-secondary', 'bg-gradient')
+          console.log('entro en el control ADD')
+        }
+      }
+    
+      document.addEventListener('DOMContentLoaded', sizeBreakPoint)
+    
+      window.addEventListener('resize', sizeBreakPoint)
+    
+      {% block extra_js %}{% endblock extra_js %}
+    </script>
+  </body>
+</html>

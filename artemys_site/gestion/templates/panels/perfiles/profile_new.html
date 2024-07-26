@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    <title>Profile Form</title>
+{% endblock %}
+
+{% block content %}
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h2>Bienvenido</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ formulario.as_p }}
+                    <button type="submit" class="btn">Crear Perfil</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

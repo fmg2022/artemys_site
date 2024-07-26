@@ -1,0 +1,25 @@
+{% extends '../../layout/base.html' %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block main_content %}
+  <section class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="w-sm-50 w-lg-40 p-3 d-flex flex-column gap-3 text-center border border-2 border-primary-site rounded-5 shadow-primary">
+      <h2>¡Bienvenido!</h2>
+      <form class="d-flex flex-column gap-2 px-sm-2 px-md-4" method="POST">
+        {% csrf_token %}
+        <label class="form-label text-start text-muted">
+          Nombre de usuario:
+          <input type="text" name="username" class="input-control form-control-sm" required>
+        </label>
+        <label class="form-label text-start text-muted m-0">
+          Contraseña:
+          <input type="password" name="password" class="input-control form-control-sm" required>
+        </label>
+        <a href="{% url 'PasswordReset'%}" class="text-decoration-link">¿Olvidaste tu contraseña?</a>
+        <button type="submit" class="btn btn-primary w-fit mx-auto mt-4">Iniciar Sesión</button>
+      </form>
+      <p>¿No tienes cuenta? <a href="{% url 'registro' %}"class="text-decoration-link py-2">Registrarte</a></p>
+    </div>
+  </section>
+{% endblock main_content %}

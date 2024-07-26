@@ -1,0 +1,38 @@
+{% extends '../../layout/base.html' %}
+
+{% block title %}Tipo de servicios{% endblock %}
+
+{% block main_content %}
+	<div class="container min-dvh-100 mb-5">
+		<h1 class="text-center mb-4 py-2">Servicios que ofrecemos</h1>
+		{% if servicios %}
+		<div class="row row-cols-1 row-cols-md-2 row-cols-xl-4 g-3 mb-4">
+			{% for servicio in servicios %}
+				<div class="col">
+					<div class="card shadow-sm rounded-5">
+						<div class="bg-light w-100 h-card-img">
+							<h5 class="text-primary fw-bold text-center">{{ servicio.serName }}</h5>
+						</div>
+						<div class="card-body">
+							<p class="card-text pb-2">{{ servicio.serDesc }}</p>
+							<div class="d-flex flex-column justify-content-between align-items-center">
+								<small class="text-muted pb-3">Tiempo estimado: {{ servicio.serTime }} Hr</small>
+								<a href="#" class="btn btn-sm btn-outline-primary">Pedir turno</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{% else %}
+			<h3 class="text-center mt-5">Sin servicios disponibles actualmente.</h3>
+		{% endif %}
+		<div class="py-4 d-flex align-items-center justify-content-center">
+			<a class="btn btn-primary" href="{% url 'index' %}"> Volver al inicio</a>
+		</div>
+	</div>
+{% endblock main_content %}
+
+{% comment %}
+	- Además, de un boton que llame a un modal para pedir turno, en caso de estar identificado el usuario, en caso contrario que redireccione a una página de error (hacer que se muestre un popup diciendo que debe de loguearse).
+{% endcomment %}

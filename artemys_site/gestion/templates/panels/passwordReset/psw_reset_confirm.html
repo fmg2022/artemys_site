@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title %}
+    <title>Reestablecer Contraseña</title>
+{% endblock %}
+
+{% block content %}
+
+
+
+    <section class="form-main">
+        <div class="form-content">
+            <div class="box">
+                <h2>Cambiar Contraseña</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        {{ form.new_password1.errors }}
+                       <label for="id_new_password1">Nueva Contraseña: </label>
+                       {{ form.new_password1 }}
+                    </div>
+                    <div class="input-box">
+                        {{ form.new_password2.errors }}
+                       <label for="id_new_password2">Confirmar Contraseña: </label>
+                       {{ form.new_password2 }}
+                    </div>
+
+                    <button type="submit" class="btn">Cambiar Contraseña</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    
+{% endblock %}

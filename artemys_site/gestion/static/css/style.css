@@ -1,0 +1,287 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Belleza&display=swap'); */
+@font-face {
+	font-family: 'Belleza';
+	font-weight: 400;
+	font-style: normal;
+	src: url('../fonts/belleza_font/webfonts/belleza-latin-400-normal.woff2') format('woff2');
+	src: url('../fonts/belleza_font/webfonts/belleza-latin-400-normal.woff') format('woff');
+}
+
+/* RESET STYLES */
+textarea {
+  resize: none;
+}
+
+/* CUSTOM SITE STYLES */
+:root {
+  --bs-font-sans-serif: 'Belleza', sans-serif;
+  --bs-body-bg-rgb: 255, 226, 211; /* 239, 227, 224 */
+  --bs-primary-rgb: 159, 8, 45;
+  --bs-secondary-rgb: 250, 198, 172; /* 237, 201, 182 */
+  --bs-color: rgb(248, 198, 172); /* rgb(240, 196, 173) */
+
+  --bs-primary-rgba: rgba(159, 8, 45, 0.9);
+
+  --bs-body-font-weight: 500;
+  --bs-body-font-size: 18px;
+
+  --bs-gradient: linear-gradient(0deg, rgba(255,226,221,0) 0%, rgba(255,226,221,0.63) 45%, rgba(255,226,221,1) 82%);
+}
+
+.navbar-light .navbar-toggler {
+  color: rgba(0, 0, 0, .1);
+  border-color: rgba(0, 0, 0, .1);
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 0 .1rem;
+}
+
+.nav-link:hover {
+  font-weight: 600;
+  text-decoration: underline 2px;
+  text-underline-position: under;
+  color:var(--bs-primary-rgba) !important;
+}
+
+.btn {
+  padding: 9px 25px;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 15px;
+}
+
+.btn-primary{
+  background-color: rgb(159, 8, 45);
+  color: #ffe1d2;
+
+  &:hover {
+    background-color: var(--bs-primary-rgba);
+    border-color: var(--bs-primary-rgba);
+    transform: scale(1.03);
+  }
+}
+
+.btn-outline-primary {
+  color: rgb(159 8 45);
+  border: 1px solid rgb(159 8 45);
+  
+  &:hover {
+    background-color: var(--bs-primary-rgba);
+    border-color: var(--bs-primary-rgba);
+  }
+}
+
+.h-card-img {
+  height: 10rem;
+  align-content: center;
+}
+
+.border-primary-site {
+  border-color: rgb(159, 8, 45) !important;
+}
+
+/* https://django-bootstrap-v5.readthedocs.io/en/latest/installation.html */
+/* SITE STYLE */
+.w-fit {
+  max-width: fit-content;
+}
+
+.rounded-5 {
+  border-radius: 1rem !important;
+}
+
+.h-20 {
+  height: 25rem;
+}
+
+.nav-link > svg {
+  width: 20px;
+  height: 20px;
+  align-self: center;
+}
+
+.min-dvh-100 {
+  min-height: 100dvh;
+}
+
+.text-decoration-link {
+  text-decoration: none;
+  color: #257cff;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.shadow-new {
+  box-shadow: 0px 5px 6px -2px rgba(0, 0, 0, 0.1), 0px 3px 4px -2px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-primary {
+  box-shadow: 1px 4px 6px -1px rgba(159,8,45,.4);
+}
+
+.galeria-port{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.5rem;
+}
+
+.imagen-port{
+  position: relative;
+  cursor: pointer;
+  
+  &:hover .hover-galeria {
+    transform: scale(1);
+  }
+
+  > img{
+    object-fit: cover;
+  }
+}
+
+.hover-galeria{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(160, 8, 46, 0.436);
+  transition: transform .3s;
+  transform: scale(0);
+
+  > img{
+    width: 70%;
+  }
+}
+
+.input-control{
+  height: 2rem;
+  width: 100%;
+  padding-block: 0.35rem;
+  padding-inline: 0.5rem;
+  background: linear-gradient(180deg, rgba(255,238,221,0) 0%, rgba(255, 238, 221, 0.63) 45%, rgba(255,238,221,1) 82%);
+  border: none;
+  border-bottom: 1px solid rgba(93, 6, 28, .5);
+  border-radius: .5rem;
+
+  &:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, .1);
+  }
+}
+
+/* LG */
+@media (width >= 992px) {
+  .shadow-lg-none {
+    box-shadow: none;
+  }
+
+  .w-lg-40 {
+    width: 40% !important;
+  }
+
+  .g-col-lg-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+
+
+
+
+
+
+/*Estilo para la lista de turnos*/
+div.textTurno-decor{
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+ul.list-Turno{
+    display: flex;
+    justify-content: space-between; 
+    flex-wrap: wrap;
+    padding: 0px 50px;
+}
+.list-Turno li{
+    width: 350px;
+}
+
+/*Estilo para div de comentarios: */
+aside {
+    width: 30%;
+    padding-left: 15px;
+    margin-left: 15px;
+    float: right;
+    font-style: italic;
+    background-color: lightgray;
+}
+.li-coment{
+    text-decoration: none !important;
+    list-style: none !important;
+}
+
+.ul-coment{
+    list-style: none;
+}
+
+
+
+
+/* ESTILO DE LA PAGINA PRINCIPAL */
+
+/* productos que trabajamos */
+
+.about.products{
+    padding-bottom: 30px;
+}
+
+.producto-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.producto-ind{
+    width: 28%;
+    text-align: center;
+}
+
+.producto-ind img{
+    width: 90%;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .5);
+}
+
+.producto-ind h3{
+    margin: 10px 0;
+}
+
+.producto-ind p {
+    font-weight: 300;
+    text-align: justify;
+}
+
+
+.turno-princ img{
+    float:left;
+    width: 500px;
+}
+
+.turno-princ p{
+
+    font-size: 20px !important;
+}
+
+.turno-princ a{
+    float:right;
+
+}
+
+.turno-princ .titulo{
+    padding-top: 80px;
+}
+

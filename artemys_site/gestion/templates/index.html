@@ -1,0 +1,84 @@
+{% extends "./layout/base.html" %}
+
+{% load static %}
+
+{% block main_content %}
+  {% include "components/messages.html" %}
+
+  <section class="container">
+    <div class="col-xl-8 px-4 pt-5">
+      <div class="row flex-lg-row-reverse align-items-center justify-content-center g-5 py-3">
+        <div class="col-10 col-sm-8 col-md-6">
+          <img class="mx-lg-auto img-fluid" src="{% static 'img/sinfondo.png' %}" alt="Mano de mujer con las uñas tratadas">
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold lh-1 mb-3">¿Ya nos conocías?</h1>
+          <p class="lead mb-3">Trabajamos unicamente con profesionales altamente capacitados y productos de la mas alta calidad. Pedinos tu turno y veni a cuidar y arreglas tus manos.</p>
+          {% with direction="denegado" %}
+            {% if request.user.is_authenticated %}
+              {% with direction="turno" %}{% endwith %}
+            {% endif %}
+            {% comment %} {% url direction %} {% endcomment %}
+            <a class="btn btn-outline-primary" href="{% url 'denegado' %}" >Sacar Turno</a>
+          {% endwith %}
+        </div>
+      </div>
+    </div>
+    <div class="py-5">
+      <h2 class="text-center text-primary mb-4">Nuestra propuesta albiceleste</h2>
+      <div class="galeria-port mb-3 px-3 py-2">
+        <div class="imagen-port shadow-primary">
+          <img class="img-fluid" src="{% static 'img/artemysarg1.jpg' %}" alt="Imagen con muestra del trabajo">
+          <div class="hover-galeria">
+            <img src="{% static 'img/logoPequeño.png' %}" alt="Logo de la empresa">
+          </div>
+        </div>
+        <div class="imagen-port shadow-primary">
+          <img class="img-fluid" src="{% static 'img/artemysarg2.jpg' %}" alt="Imagen con muestra del trabajo">
+          <div class="hover-galeria">
+            <img src="{% static 'img/logoPequeño.png' %}" alt="Logo de la empresa">
+          </div>
+        </div>
+        <div class="imagen-port shadow-primary">
+          <img class="img-fluid" src="{% static 'img/artemysarg3.jpg' %}" alt="Imagen con muestra del trabajo">
+          <div class="hover-galeria">
+            <img src="{% static 'img/logoPequeño.png' %}" alt="Logo de la empresa">
+          </div>
+        </div>
+        <div class="imagen-port shadow-primary">
+          <img class="img-fluid" src="{% static 'img/artemysarg4.jpg' %}" alt="Imagen con muestra del trabajo">
+          <div class="hover-galeria">
+            <img src="{% static 'img/logoPequeño.png' %}" alt="Logo de la empresa">
+          </div>
+        </div>
+      </div>
+      <p class="text-center">¡Alenta a la Selección con nosotros!</p>
+    </div>
+    <div class="mb-5">
+      <h2 class="text-center text-primary mb-4">Productos que trabajamos</h2>
+      <div class="galeria-port px-3 pt-2 pb-4">
+        <div class="card bg-light bg-opacity-50 shadow-primary">
+          <img class="card-img-top" src="{% static 'img/producto1.jpg' %}" alt="" height="270">
+          <div class="card-body pb-4">
+            <a class="d-block card-title h3 text-primary text-center" href="https://instagram.com/angelabresciano?igshid=MDM4ZDc5MmU=">Ángela Bresciano</a>
+            <p class="card-text">Productos aprobado por el ANMAT, no testeados en animales, cruelty-free, veganos, toxic free</p>
+          </div>
+        </div>
+        <div class="card bg-light bg-opacity-50 shadow-primary">
+          <img class="card-img-top" src="{% static 'img/producto2.jpg' %}" alt="" height="270">
+          <div class="card-body pb-4">
+            <a class="d-block card-title h3 text-primary text-center" href="https://instagram.com/pinkmasknails?igshid=MDM4ZDc5MmU=">Pink Mask</a>
+            <p>Productos aprobados por ANMAT, no testeados en animales, cruelty-free, veganos, 13-Free</p>
+          </div>
+        </div>
+        <div class="card bg-light bg-opacity-50 shadow-primary">
+          <img class="card-img-top" src="{% static 'img/producto3.jpg' %}" alt="" height="270">
+          <div class="card-body pb-4">
+            <a class="d-block card-title h3 text-primary text-center" href="https://instagram.com/cleopatraprofesional?igshid=MDM4ZDc5MmU=" class="link">Cleopatra</a>
+            <p>Productos de industria argentina, aprobados por ANMAT, no testeados en animales, cruelty-free, veganos</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock main_content %}
