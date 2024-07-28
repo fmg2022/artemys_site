@@ -1,16 +1,11 @@
 {% load static %}
 
 {% if messages %}
-  <div class="toast-container">
+  <div class="toaster-container">
     {% for message in messages %}
-      <div class="position-fixed top-0 end-0 toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
-          <img src="{% static 'img/logoPequeño.png' %}" class="img-fluid me-3" alt="logo" width=25>
-          <strong class="me-auto">Artemys</strong>
-          <small>Justo ahora</small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body {% if message.tags %}{{ message.tags }}{% endif %}">
+      <div class="toaster show" role="alert">
+        <div class="img">Info</div>
+        <div class="desc">
           {{ message }}
         </div>
       </div>

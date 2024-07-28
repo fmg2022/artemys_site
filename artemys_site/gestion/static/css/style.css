@@ -174,6 +174,76 @@ textarea {
   }
 }
 
+.toaster {
+  position: relative;
+  right: .75rem;
+  bottom: 15px;
+  z-index: 9999;
+  height: 50px;
+  max-width: 50px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  background-color: #f31;
+  border-radius: 2px;
+  visibility: hidden;
+
+  & > .img{
+    background-color: #1ce;
+  }
+
+  & > .desc{
+    width: 100%;
+    padding: 1rem;
+    overflow: hidden;
+  }
+}
+
+.toaster-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.toaster.show {
+  visibility: visible;
+  animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+
+  > .desc {
+    animation: 5s descfadein 0.17s;
+  }
+}
+
+@keyframes descfadein {
+  0% {opacity: 0.1; display: none;}
+  60% {opacity: 1; display: block;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 15px; opacity: 1;}
+}
+@keyframes expand {
+    from {min-width: 50px}
+    to {min-width: 350px}
+}
+@keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+@keyframes shrink {
+    from {min-width: 350px;} 
+    to {min-width: 50px;}
+}
+@keyframes fadeout {
+    from {bottom: 15px; opacity: 1;}
+    to {bottom: 30px; opacity: 0;}
+}
+
 /* LG */
 @media (width >= 992px) {
   .shadow-lg-none {

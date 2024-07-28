@@ -47,11 +47,19 @@
           console.log('entro en el control ADD')
         }
       }
+
+      const toasterShow = () => {
+        const toasters = document.querySelectorAll(".toaster.show")
+        toasters.forEach(el => setTimeout(() => el.remove(), 5000))
+      }
     
-      document.addEventListener('DOMContentLoaded', sizeBreakPoint)
+      document.addEventListener('DOMContentLoaded', () => {
+        sizeBreakPoint();
+        toasterShow();
+      })
     
       window.addEventListener('resize', sizeBreakPoint)
-    
+
       {% block extra_js %}{% endblock extra_js %}
     </script>
   </body>
