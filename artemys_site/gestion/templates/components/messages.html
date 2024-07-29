@@ -3,8 +3,12 @@
 {% if messages %}
   <div class="toaster-container">
     {% for message in messages %}
-      <div class="toaster show" role="alert">
-        <div class="img">Info</div>
+      <div class="toaster toaster-{{ message.tags }} show" role="alert">
+        <div class="img">
+          {% with pathIcon="components/icons/"|add:message.tags|add:".svg" %}
+            {% include pathIcon %}
+          {% endwith %}
+        </div>
         <div class="desc">
           {{ message }}
         </div>

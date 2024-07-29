@@ -82,7 +82,6 @@ def login_view(request):
   return render(request, "panels/perfiles/login.html")
 
 def my_logout(request):
-  # logout(request)
+  logout(request)
   messages.info(request, "Te has desconectado")
-  # return render(request, "panels/perfiles/logout.html")
   return redirect('index')

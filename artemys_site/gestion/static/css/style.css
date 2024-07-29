@@ -128,8 +128,14 @@ textarea {
   gap: 1.5rem;
 }
 
+/* Rehacer css y html.
+  - Forma de hacer una galeria con una imagen y al hacerle el hover muestre otra imagen sobre la misma.
+    ** Usar una <img/> con display none; y usar <div> con imagen de background.
+*/
 .imagen-port{
   position: relative;
+  border-radius: .25rem;
+  overflow: hidden;
   cursor: pointer;
   
   &:hover .hover-galeria {
@@ -158,6 +164,7 @@ textarea {
   }
 }
 
+
 .input-control{
   height: 2rem;
   width: 100%;
@@ -178,24 +185,38 @@ textarea {
   position: relative;
   right: .75rem;
   bottom: 15px;
-  z-index: 9999;
+  z-index: 9;
   height: 50px;
   max-width: 50px;
   display: flex;
   align-items: center;
   text-align: center;
-  color: #fff;
-  background-color: #f31;
-  border-radius: 2px;
+  color: #eee;
+  border-radius: 0.5rem;
+  overflow: hidden;
   visibility: hidden;
 
+  &.show {
+    visibility: visible;
+    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+  
+    > .desc {
+      animation: 5s descfadein 0.17s;
+    }
+  }
+
   & > .img{
-    background-color: #1ce;
+    height: 50px;
+    padding-inline: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   & > .desc{
     width: 100%;
     padding: 1rem;
+    text-wrap: nowrap;
     overflow: hidden;
   }
 }
@@ -209,12 +230,27 @@ textarea {
   align-items: flex-end;
 }
 
-.toaster.show {
-  visibility: visible;
-  animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+.toaster-info {
+  background-color: rgb(45, 169, 218);
 
-  > .desc {
-    animation: 5s descfadein 0.17s;
+  > .img {
+    background-color: rgb(65, 180, 226);
+  }
+}
+
+.toaster-success {
+  background-color: rgb(12, 158, 48);
+
+  > .img {
+    background-color: rgb(33, 167, 66);
+  }
+}
+
+.toaster-error {
+  background-color: rgb(235, 65, 14);
+
+  > .img {
+    background-color: rgb(223, 81, 38);
   }
 }
 
@@ -222,7 +258,6 @@ textarea {
   0% {opacity: 0.1; display: none;}
   60% {opacity: 1; display: block;}
 }
-
 @keyframes fadein {
   from {bottom: 0; opacity: 0;}
   to {bottom: 15px; opacity: 1;}
