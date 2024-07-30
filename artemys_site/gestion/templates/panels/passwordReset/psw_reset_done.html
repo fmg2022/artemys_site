@@ -1,16 +1,11 @@
-{% extends 'index.html' %}
+{% extends '../../layout/base.html' %}
 
-{% block title %}
-    <title>Recuperar Contraseña</title>
-{% endblock %}
+{% block title %}Recuperar Contraseña{% endblock %}
 
 {% block content %}
-    <section class="form-main">
-        <div class="form-content">
-            <div class="box">
-                <h3>Te hemos enviado un mail con un enlace para reestablecer tu contraseña</h3>
-                
-            </div>
-        </div>
-    </section>
+  <section class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="w-lg-40 p-3 d-flex flex-column gap-3 text-center border border-2 border-primary-site rounded-5 shadow-primary">
+      <h3>Te hemos enviado un mail con un enlace para reestablecer tu contraseña</h3>
+    </div>
+  </section>
 {% endblock %}

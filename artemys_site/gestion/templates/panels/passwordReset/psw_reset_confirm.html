@@ -1,36 +1,25 @@
-{% extends 'index.html' %}
+{% extends '../../layout/base.html' %}
 
-{% block title %}
-    <title>Reestablecer Contraseña</title>
-{% endblock %}
+{% block title %}Reestablecer Contraseña{% endblock %}
 
-{% block content %}
-
-
-
-    <section class="form-main">
-        <div class="form-content">
-            <div class="box">
-                <h2>Cambiar Contraseña</h2>
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="input-box">
-                        {{ form.new_password1.errors }}
-                       <label for="id_new_password1">Nueva Contraseña: </label>
-                       {{ form.new_password1 }}
-                    </div>
-                    <div class="input-box">
-                        {{ form.new_password2.errors }}
-                       <label for="id_new_password2">Confirmar Contraseña: </label>
-                       {{ form.new_password2 }}
-                    </div>
-
-                    <button type="submit" class="btn">Cambiar Contraseña</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-
-    
-{% endblock %}
+{% block main_content %}
+  <section class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="w-lg-40 p-3 d-flex flex-column gap-3 text-center border border-2 border-primary-site rounded-5 shadow-primary">
+      <h2>Cambiar Contraseña</h2>
+      <form class="d-flex flex-column gap-2 px-sm-2 px-md-4" method="POST">
+        {% csrf_token %}
+        <label class="form-label text-start text-muted">
+          Nueva contraseña
+          <input type="text" name="form.new_password1" class="input-control form-control-sm" required>
+        </label>
+        {{ form.new_password1.errors }}
+        <label class="form-label text-start text-muted">
+          Confirmar contraseña
+          <input type="text" name="form.new_password2" class="input-control form-control-sm" required>
+        </label>
+        {{ form.new_password2.errors }}
+        <button type="submit" class="btn btn-primary w-fit mx-auto mt-4">Cambiar Contraseña</button>
+      </form>
+    </div>
+  </section>
+{% endblock main_content %}

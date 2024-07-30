@@ -81,7 +81,6 @@ textarea {
   border-color: rgb(159, 8, 45) !important;
 }
 
-/* https://django-bootstrap-v5.readthedocs.io/en/latest/installation.html */
 /* SITE STYLE */
 .w-fit {
   max-width: fit-content;
@@ -122,23 +121,21 @@ textarea {
   box-shadow: 1px 4px 6px -1px rgba(159,8,45,.4);
 }
 
+/* Otra forma de hacer que al tener posisicon relativa y absoluta no este por encima de los demás elementos. */
 .galeria-port{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 1.5rem;
 }
 
-/* Rehacer css y html.
-  - Forma de hacer una galeria con una imagen y al hacerle el hover muestre otra imagen sobre la misma.
-    ** Usar una <img/> con display none; y usar <div> con imagen de background.
-*/
 .imagen-port{
   position: relative;
+  z-index: 0;
   border-radius: .25rem;
   overflow: hidden;
   cursor: pointer;
   
-  &:hover .hover-galeria {
+  &:hover > .hover-galeria {
     transform: scale(1);
   }
 
@@ -155,13 +152,14 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(160, 8, 46, 0.436);
+  background: no-repeat url("../img/logoPequeño.png") rgba(160, 8, 46, 0.436);
+  background-size: cover;
   transition: transform .3s;
   transform: scale(0);
 
-  > img{
+  /* > img{
     width: 70%;
-  }
+  } */
 }
 
 
@@ -334,41 +332,7 @@ aside {
     list-style: none;
 }
 
-
-
-
 /* ESTILO DE LA PAGINA PRINCIPAL */
-
-/* productos que trabajamos */
-
-.about.products{
-    padding-bottom: 30px;
-}
-
-.producto-cont{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.producto-ind{
-    width: 28%;
-    text-align: center;
-}
-
-.producto-ind img{
-    width: 90%;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, .5);
-}
-
-.producto-ind h3{
-    margin: 10px 0;
-}
-
-.producto-ind p {
-    font-weight: 300;
-    text-align: justify;
-}
 
 
 .turno-princ img{

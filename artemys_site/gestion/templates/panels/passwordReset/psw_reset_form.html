@@ -3,18 +3,20 @@
 {% block title %}Recuperar Contraseña{% endblock %}
 
 {% block main_content %}
-  <section class="form-main">
-    <div class="form-content">
-      <div class="box">
-        <form method="POST">
-          <h2>Recuperar Contraseña</h2>
-          {% csrf_token %}
-          <div class="input-box">
-            {{form}}
-          </div>
-          <button type="submit" class="btn"><i class="fa-regular fa-envelope"></i>Enviar Email</button>
-        </form>
-      </div>
+  <section class="container py-4 d-flex justify-content-center align-items-center">
+    <div class="w-lg-40 p-3 d-flex flex-column gap-3 text-center border border-2 border-primary-site rounded-5 shadow-primary">
+      <h2>Recuperar Contraseña</h2>
+      <form class="d-flex flex-column gap-2 px-sm-2 px-md-4" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+          {{ field.errors }}
+          <label class="fs-6 text-start" for="{{ field.id_for_label }}">
+            {{ field.label }}
+          </label>
+          <input type="email" class="input-control" name="email" autocomplete="email" maxlength="254" required id="{{ field.id_for_label }}">
+        {% endfor %}
+        <button type="submit" class="btn btn-primary w-fit mx-auto">Recuperar</button>
+      </form>
     </div>
   </section>
 {% endblock main_content %}
