@@ -24,7 +24,7 @@ def garantia_policy(request):
   return render(request, 'panels/info/garantiaPolicy.html')
 
 def soli_deneg (request):
-  return render(request, 'components/requestDenied.html')
+  return render(request, '_partials/requestDenied.html')
 
 
 # # def principal(request):

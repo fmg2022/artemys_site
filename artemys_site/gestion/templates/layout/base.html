@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    {% include "_partials/header.html" %}
+    {% include "_partials/header.html" with id_btn_modal="updateDetails" idModal="favDialog" only %}
 
     <main class="d-flex flex-column bg-body w-100">
       {% block main_content %}{% endblock main_content %}
@@ -37,12 +37,10 @@
       const sizeBreakPoint = () => {
         if (window.innerWidth >= 992 && $navBar.classList.contains('bg-secondary')) {
           $navBar.classList.remove('bg-secondary', 'bg-gradient')
-          console.log('entro en el control REMOVE')
         }
     
         if (window.innerWidth < 992 && !$navBar.classList.contains('bg-secondary')) {
           $navBar.classList.add('bg-secondary', 'bg-gradient')
-          console.log('entro en el control ADD')
         }
       }
 
@@ -50,10 +48,23 @@
         const toasters = document.querySelectorAll(".toaster.show")
         toasters.forEach(el => setTimeout(() => el.remove(), 5000))
       }
+
+      const modalShow = () => {
+        const updateButton = document.getElementById("updateDetails");
+        const favDialog = document.getElementById("favDialog");
+  
+        updateButton.addEventListener("click", () => favDialog.showModal());
+
+        favDialog.addEventListener("click", ev => {
+          if (ev.target === favDialog)
+            favDialog.close()
+        })
+      }
     
       document.addEventListener('DOMContentLoaded', () => {
         sizeBreakPoint();
         toasterShow();
+        modalShow();
       })
     
       window.addEventListener('resize', sizeBreakPoint)
