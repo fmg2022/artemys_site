@@ -12,6 +12,30 @@ textarea {
   resize: none;
 }
 
+dialog {
+  padding: 0;
+  border: 0;
+
+  > form {
+    position: relative;
+    padding: 1rem;
+  }
+
+  &:modal {
+    box-shadow: 6px 6px 1rem 8px black;
+    /* editar */
+    background-color: beige;
+    border: 1px solid burlywood;
+    border-radius: 10px;
+  }
+
+  &::backdrop {
+    /* editar */
+    background-color: rgba(58, 4, 29, 0.45)
+  }
+
+}
+
 /* CUSTOM SITE STYLES */
 :root {
   --bs-font-sans-serif: 'Belleza', sans-serif;
@@ -46,6 +70,7 @@ textarea {
 
 .btn {
   padding: 9px 25px;
+  font-size: var(--bs-body-font-size);
   letter-spacing: 1px;
   border: none;
   border-radius: 15px;
@@ -72,36 +97,40 @@ textarea {
   }
 }
 
-.h-card-img {
-  height: 10rem;
-  align-content: center;
-}
-
+/* SITE STYLE */
 .border-primary-site {
   border-color: rgb(159, 8, 45) !important;
 }
 
-/* SITE STYLE */
-.w-fit {
-  max-width: fit-content;
+.fw-500 {
+  font-weight: 500;
 }
 
-.rounded-5 {
-  border-radius: 1rem !important;
+.h-card-img {
+  height: 10rem;
+  align-content: center;
 }
 
 .h-20 {
   height: 25rem;
 }
 
+.min-dvh-100 {
+  min-height: 100dvh;
+}
+
+.rounded-5 {
+  border-radius: 1rem !important;
+}
+
+.w-fit {
+  max-width: fit-content;
+}
+
 .nav-link > svg {
   width: 20px;
   height: 20px;
   align-self: center;
-}
-
-.min-dvh-100 {
-  min-height: 100dvh;
 }
 
 .text-decoration-link {
@@ -119,6 +148,15 @@ textarea {
 
 .shadow-primary {
   box-shadow: 1px 4px 6px -1px rgba(159,8,45,.4);
+}
+
+.btn-linked {
+  outline: 0;
+  border: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
 }
 
 /* Otra forma de hacer que al tener posisicon relativa y absoluta no este por encima de los demás elementos. */
@@ -252,32 +290,18 @@ textarea {
   }
 }
 
-dialog {
-  padding: 0;
-  border: 0;
-
-  > form {
-    position: relative;
-    padding: 1rem;
-  }
-
-  &:modal {
-    background-color: beige;
-    border: 1px solid burlywood;
-    box-shadow: 6px 6px 1rem 8px black;
-    border-radius: 10px;
-  }
-
-  &::backdrop {
-    background-color: rgba(58, 4, 29, 0.45)
-  }
-
-}
-
 .modal-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0.5rem;
+  outline: none;
+
+  &:hover {
+    color: rgba(26, 26, 26, 0.397);
+  }
 }
 
 

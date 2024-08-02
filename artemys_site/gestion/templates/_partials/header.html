@@ -30,16 +30,9 @@
           </li>
           {% endcomment %}
           {% if request.user.is_authenticated %}
-            {% if request.user.is_staff %}
-              {% comment %}
-                {% url 'turnos' %}
-                {% url 'turno' %}
-              {% endcomment %}
-              <li class="nav-item text-center">
-                {% comment %} Agreagar un icono de calendario {% endcomment %}
-                <button class="nav-link text-primary" id="{{ id_btn_modal }}">📅 Turnos</button>
-              </li>
-            {% endif %}
+            <li class="nav-item text-center">
+              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal }}">Mis Turnos</button>
+            </li>
             <li class="nav-item text-center">
               <a class="nav-link text-primary" href="">Pedir Turno</a>
             </li>
@@ -63,4 +56,4 @@
   </nav>
 </header>
 
-{% include "components/modal.html" with id_modal="{{ idModal }}" only %}
+{% include "components/modal.html" with id_modal=idModal %}
