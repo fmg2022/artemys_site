@@ -17,7 +17,9 @@
     {% block extra_css %} {% endblock extra_css%}
 
     <link rel="stylesheet" href="{% static 'css/style.css' %} ">
-    <link rel="shortcut icon" href="{% static 'img/logoPequeño.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/logoPequenio.png' %}" type="image/x-icon">
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     <title>{% block title %}Artemys{% endblock %}</title>
   </head>
@@ -48,12 +50,87 @@
         const toasters = document.querySelectorAll(".toaster.show")
         toasters.forEach(el => setTimeout(() => el.remove(), 5000))
       }
+      
+      const calendar = () => {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          themeSystem: 'bootstrap5',
+          locale: 'es',
+          headerToolbar: {
+            start: 'prev,next today',
+            center: 'title',
+            end: 'dayGridMonth,timeGridDay,listMonth'
+          },
+          height: 'auto',
+          dayMaxEvents: true,
+          /*
+            // https://fullcalendar.io/docs/event-object
+            // https://fullcalendar.io/docs/event-parsing
+           events: [
+            {
+              title: 'All Day Event',
+              start: '2024-08-01',
+              textColor: '',
+              backgroundColor: '',
+            },
+            {
+              title: 'Long Event',
+              start: '2024-08-07',
+              end: '2024-08-10'
+            },
+            {
+              groupId: '999',
+              title: 'Repeating Event',
+              start: '2024-08-09T16:00:00'
+            },
+            {
+              groupId: '999',
+              title: 'Repeating Event',
+              start: '2024-08-16T16:00:00'
+            },
+            {
+              title: 'Conference',
+              start: '2024-08-11',
+              end: '2024-08-13'
+            },
+            {
+              title: 'Meeting',
+              start: '2024-08-12T10:30:00',
+              end: '2024-08-12T12:30:00'
+            },
+            {
+              title: 'Birthday Party',
+              start: '2024-08-13T07:00:00'
+            },
+            {
+              title: 'Click for Google',
+              url: 'https://google.com/',
+              start: '2024-08-28'
+            }
+          ]
+          */
+
+          dateClick: function(info) {
+            console.log(info, info.jsEvent)
+            alert('Clicked on: ' + info.dateStr);
+            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+            alert('Current view: ' + info.view.type);
+            // change the day's background color just for fun
+            info.dayEl.style.backgroundColor = 'red';
+            // mostrar un modal con la info de la fecha seleccionada
+          }
+        });
+        calendar.render();
+      }
 
       const modalShow = () => {
         const updateButton = document.getElementById("updateDetails");
         const favDialog = document.getElementById("favDialog");
   
-        updateButton.addEventListener("click", () => favDialog.showModal());
+        updateButton.addEventListener("click", () => {
+          favDialog.showModal()
+          calendar()
+        });
 
         favDialog.addEventListener("click", ev => {
           if (ev.target === favDialog)

@@ -13,19 +13,20 @@ textarea {
 }
 
 dialog {
+  min-height: 50%;
   padding: 0;
-  border: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bs-primary-rgba) transparent;
 
   > form {
     position: relative;
-    padding: 1rem;
   }
 
   &:modal {
-    box-shadow: 6px 6px 1rem 8px black;
+    box-shadow: 8px 6px 2rem 3px rgba(0, 0, 0, 0.15);
     /* editar */
-    background-color: beige;
-    border: 1px solid burlywood;
+    background-color: var(--bg-light-color);
+    border: 1px solid rgb(252, 228, 215);
     border-radius: 10px;
   }
 
@@ -37,6 +38,7 @@ dialog {
 }
 
 /* CUSTOM SITE STYLES */
+/***\ BOOTSTRAP /***/
 :root {
   --bs-font-sans-serif: 'Belleza', sans-serif;
   --bs-body-bg-rgb: 255, 226, 211; /* 239, 227, 224 */
@@ -50,6 +52,8 @@ dialog {
   --bs-body-font-size: 18px;
 
   --bs-gradient: linear-gradient(0deg, rgba(255,226,221,0) 0%, rgba(255,226,221,0.63) 45%, rgba(255,226,221,1) 82%);
+
+  --bg-light-color: rgb(250, 238, 233);
 }
 
 .navbar-light .navbar-toggler {
@@ -95,6 +99,13 @@ dialog {
     background-color: var(--bs-primary-rgba);
     border-color: var(--bs-primary-rgba);
   }
+}
+
+/***\ FULLCALENDAR /***/
+.fc-toolbar-chunk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.325rem;
 }
 
 /* SITE STYLE */
@@ -190,7 +201,7 @@ dialog {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: no-repeat url("../img/logoPequeño.png") rgba(160, 8, 46, 0.436);
+  background: no-repeat url("../img/logoPequenio.png") rgba(160, 8, 46, 0.436);
   background-size: cover;
   transition: transform .3s;
   transform: scale(0);
@@ -290,17 +301,43 @@ dialog {
   }
 }
 
+.modal-cont {
+  padding-inline: 0.5rem;
+
+  a {
+    text-decoration: none;
+    color: rgb(159, 8, 45);
+  }
+}
+
+.modal-btn-content {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 4px;
+  right: 4px;
+  padding: 0.125rem;
+  color: #bd0808;
   background-color: transparent;
   border: 0;
-  border-radius: 0.5rem;
+  border-radius: 50%;
   outline: none;
-
+  
   &:hover {
-    color: rgba(26, 26, 26, 0.397);
+    color: rgba(189, 8, 8, 0.4);
+  }
+}
+
+.fc-day {
+  cursor: pointer;
+  
+  &:hover a {
+    /* color: rgba(159, 8, 45, .9); */
+    color: blue;
+    transform: scale(1.1);
   }
 }
 
@@ -330,6 +367,19 @@ dialog {
     to {bottom: 30px; opacity: 0;}
 }
 
+@media (width >= 576px) {
+  dialog > form {
+    padding: 1.25rem 2rem;
+  }
+}
+
+/* MD */
+@media (width >= 768px) {
+  dialog {
+    width: 697px;
+  }
+}
+
 /* LG */
 @media (width >= 992px) {
   .shadow-lg-none {
@@ -354,68 +404,6 @@ dialog {
   * Modal (dialog tag)
     - https://stackoverflow.com/questions/25864259/how-to-close-the-new-html-dialog-tag-by-clicking-on-its-backdrop
     - https://developer.mozilla.org/es/docs/Web/HTML/Element/dialog
-    -- CODIGO:
-    <dialog id="favDialog">
-      <form method="dialog">
-        <section>
-          <p>Aqui va el calendario</p>
-          // no seria necesario el id
-          <button id="cancel">X</button>
-        </section>
-      </form>
-    </dialog>
-
-    <button id="updateDetails">Update details</button>
-
-    button {
-      display: block;
-      margin: auto;
-      width: 10rem;
-      height: 2rem;
-    }
-
-    dialog {
-      padding: 0;
-      border: 0;
-    }
-
-    section {
-      width: 100%;
-      height: 100%;
-      padding: 1rem;
-    }
-
-    :modal {
-      background-color: beige;
-      border: 2px solid burlywood;
-      border-radius: 10px;
-    }
-
-    ::backdrop {
-      background-color: rgba(200, 50, 120, 0.5)
-    }
-
-
-    (function () {
-      var updateButton = document.getElementById("updateDetails");
-      var cancelButton = document.getElementById("cancel");
-      var favDialog = document.getElementById("favDialog");
-
-      // Update button opens a modal dialog
-      updateButton.addEventListener("click", function () {
-        favDialog.showModal();
-      });
-
-      // Form cancel button closes the dialog box
-      cancelButton.addEventListener("click", function () {
-        favDialog.close();
-      });
-      favDialog.addEventListener("click", ev => {
-        if (ev.target === favDialog)
-          favDialog.close()
-      })
-    })();
-
 */
 
 
