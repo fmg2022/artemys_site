@@ -376,7 +376,7 @@ dialog {
 /* MD */
 @media (width >= 768px) {
   dialog {
-    width: 697px;
+    max-width: 697px;
   }
 }
 

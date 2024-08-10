@@ -20,21 +20,13 @@
           <li class="nav-item text-center">
             <a class="nav-link text-primary" href="{% url 'servicios' %}">Servicios</a>
           </li>
-          {% comment %}
-            {% url 'turnos_calendar' %}
-          {% endcomment %}
-          {% comment %}
-          Cambiar a: "Mis Turnos" (Actuales y los siguientes: sobre un calendario como Popup)
-          <li class="nav-item text-center">
-            <a class="nav-link text-primary" href="#">Turnos</a>
-          </li>
-          {% endcomment %}
           {% if request.user.is_authenticated %}
             <li class="nav-item text-center">
-              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal }}">Mis Turnos</button>
+              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal1 }}">Mis Turnos</button>
             </li>
             <li class="nav-item text-center">
-              <a class="nav-link text-primary" href="">Pedir Turno</a>
+              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal2 }}">Pedir Turno</button>
+              {% comment %} <a class="nav-link text-primary" href="">Pedir Turno</a> {% endcomment %}
             </li>
           {% else %}
             <li class="nav-item text-center">
@@ -56,4 +48,5 @@
   </nav>
 </header>
 
-{% include "components/modal.html" with id_modal=idModal %}
+{% include "components/modals/calendar.html" with id_modal=idModal1 %}
+{% include "components/modals/turn.html" with id_modal=idModal2 %}

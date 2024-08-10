@@ -4,7 +4,7 @@
       {% include "components/icons/x.svg" %}
     </button>
     <section class="modal-cont">
-      <div id="calendar"></div>
+      {% block modal_content %}{% endblock modal_content %}
     </section>
   </form>
 </dialog>
