@@ -8,15 +8,17 @@ class Profile (models.Model):
   proEmergencyContactName = models.CharField(max_length=50)
   proEmergencyContactTel = models.CharField(max_length=20)
 
+  # pasarlo a una relación de Many to Many
   proAlerg = models.CharField(max_length=250, help_text="Ingrese NO si no tiene alergias")
   proEnfer = models.CharField(max_length=250, help_text="Ingrese NO si no tiene enfermedades")
   proMedi = models.CharField(max_length=250, help_text="Ingrese NO si no toma medicación")
   proRefe = models.CharField(max_length=250, help_text="Recomendación, Red Social, etc")
+  isActive = models.BooleanField(default=True)
 
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
 
   def get_absolute_url(self):
-      return reverse("perfilInfo", kwargs={"pk": self.pk})
+    return reverse("perfilInfo", kwargs={"pk": self.pk})
   
 
   def __str__(self):
@@ -25,6 +27,7 @@ class Profile (models.Model):
 class Comment (models.Model):
   comContent = models.TextField(max_length=500, null=True, blank=True)
   comDateTime = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+  isActive = models.BooleanField(default=True)
 
   profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
 
@@ -38,6 +41,7 @@ class ServiceType(models.Model):
   serName = models.CharField(max_length=50, help_text="Ingrese el nombre del sero de Servicio")
   serDesc = models.TextField(max_length=500, help_text="Breve descripcion del Servicio por hacer")
   serTime = models.TimeField(help_text='Formato: 09:15:00  Tiempo que le toma en promedio en realizar el Servicio.', null=True, blank=True)
+  isActive = models.BooleanField(default=True)
 
   def get_absolute_url(self):
     return reverse("servicio", kwargs={"pk": self.pk})
@@ -48,14 +52,13 @@ class ServiceType(models.Model):
 class Turn(models.Model):
   turDate = models.DateField()
   turHrFrom = models.TimeField()
-  turHrTo = models.TimeField()
-  turSenia = models.FloatField(default=0, null=True, blank=True)
+  isActive = models.BooleanField(default=True)
 
   serviceType = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True)
   profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
 
   def get_absolute_url(self):
-      return reverse("turnoInfo", kwargs={"pk": self.pk})
+    return reverse("turnoInfo", kwargs={"pk": self.pk})
 
   def __str__(self):
     self.turDate

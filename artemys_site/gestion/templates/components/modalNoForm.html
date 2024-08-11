@@ -1,0 +1,8 @@
+<dialog id="{{ id_modal }}">
+  <button class="modal-close">
+    {% include "components/icons/x.svg" %}
+  </button>
+  <section class="modal-cont">
+    {% block modal_content %}{% endblock modal_content %}
+  </section>
+</dialog>

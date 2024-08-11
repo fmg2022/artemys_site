@@ -1,13 +1,11 @@
 from django.contrib import messages
-# from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.http import Http404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 from django.shortcuts import redirect, render
 
 from gestion.models import ServiceType, Profile
-from gestion.forms import CustomUserForm, ProfileForm
+from gestion.forms import CustomUserForm, ProfileForm, TurnForm
 
 
 def index (request):
@@ -42,6 +40,11 @@ class TipoServiciosView(ListView):
   model = ServiceType
   context_object_name = 'servicios'
   template_name = "panels/servicios/servicios.html"
+
+# ------------------------------- Turnos --------------------------------
+# def turn(request):
+#   form = TurnForm()
+#   return render(request, "form.html", {'form': form})
 
 # ----------------------------------- Perfiles -------------------------------------
 def register(request):

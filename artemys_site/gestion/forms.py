@@ -1,11 +1,12 @@
-from django.forms import ModelForm, DateInput, TextInput, Textarea
+from django.forms import ModelForm, DateInput, NumberInput, TextInput, Textarea, TimeInput
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from gestion.models import Profile
+from gestion.models import Profile, Turn
 
 import re
+from datetime import date
 
 class ProfileForm(ModelForm):
   def __init__(self, *args, **kwargs):
@@ -68,7 +69,7 @@ class ProfileForm(ModelForm):
       "proMedi": "Medicamentos",
       "proRefe": "Referencia",
     }
-    exclude = ["user"]
+    exclude = ["user", "isActive"]
 
 class CustomUserForm(UserCreationForm):
   def __init__(self, *args, **kwargs):
@@ -127,3 +128,28 @@ class CustomUserForm(UserCreationForm):
       self.cleaned_data['last_name'], 
     )
     return user
+
+class TurnForm(ModelForm):
+  class Meta:
+    model = Turn
+    fields = ['turDate', 'turHrFrom', 'serviceType']
+    widgets = {
+      'turFecha': NumberInput(
+        attrs={
+          'type': 'date',
+          'min': date.today()
+        },
+      ),
+      'turHrDesde': TimeInput(
+        attrs={
+          'type': 'time',
+          'min':'08:59',
+          'max':'18:00:01',
+        }
+      ),
+    }
+    labels = {
+      'turDate': 'Fecha',
+      'turHrTo': 'Hora desde',
+      'serviceType': 'Servicio',
+    }

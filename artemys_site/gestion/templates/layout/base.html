@@ -165,8 +165,10 @@
       document.addEventListener('DOMContentLoaded', () => {
         sizeBreakPoint();
         toasterShow();
-        modalShow();
-        modalTurnShow();
+        {% if request.user.is_authenticated %}
+          modalShow();
+          modalTurnShow();
+        {% endif %}
       })
     
       window.addEventListener('resize', sizeBreakPoint)

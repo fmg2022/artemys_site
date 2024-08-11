@@ -30,4 +30,7 @@ urlpatterns = [
     path('reset/done',PasswordResetDoneView.as_view(template_name ='panels/passwordReset/psw_reset_done.html'), name='password_reset_done'),
     path('reset/PasswordResetConfirm/<uidb64>/<token>/', PasswordResetConfirmView.as_view(template_name ='panels/passwordReset\psw_reset_confirm.html'), name='PasswordResetConfirm'),
     path('reset/complete', PasswordResetCompleteView.as_view(template_name = 'panels/passwordReset/psw_reset_complete.html'), name= 'password_reset_complete'),
+
+  # Turnos
+  
 ]

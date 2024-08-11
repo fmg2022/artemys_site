@@ -1,5 +1,37 @@
-{% extends "../modal.html" %}
+{% extends "../modalNoForm.html" %}
 
 {% block modal_content %}
-  <h3>Aquí el formulario del los turnos</h3>
+  <h2>Nuevo Turno</h2>
+  <form class="d-flex flex-column gap-2 px-sm-2 px-md-4" autocomplete="off" method="POST">
+    {% csrf_token %}
+    <label class="fs-6 text-start">
+      Fecha:
+      <input type="date" name="turDate" min="{% now "Y-m-d" %}" class="input-control" required>
+    </label>
+    <label>
+      Hora desde:
+      <input type="time" name="turHrFrom" min="08:59" max="18:00" step="1800" class="input-control" required>
+    </label>
+    <button type="submit" class="btn">Pedir Turno</button>
+  </form>
+  {% comment %} Hacer un slider/progress donde al presionar 'Cancelar turno' pase al siguiente vista y muestre un cartel de confirmación de eliminación {% endcomment %}
 {% endblock modal_content %}
+
+{% comment %} 
+  <form method="POST">
+    <label for="id_serviceType">ServiceType:</label>
+    <select name="serviceType" required="" id="id_serviceType">
+      <option value="" selected="">---------</option>
+      <option value="1">Esmaltado Semipermanente en manos</option>
+      <option value="2">Esmaltado Semipermanente en pies</option>
+      <option value="3">Capping</option>
+      <option value="4">Esculpidas</option>
+    </select>
+    <label for="id_profile">Profile:</label>
+    <select name="profile" required="" id="id_profile">
+      <option value="" selected="">---------</option>
+      <option value="1">Admin, Soy</option>
+      <option value="2">Laters, Thoms</option>
+    </select>
+</form>
+{% endcomment %}
