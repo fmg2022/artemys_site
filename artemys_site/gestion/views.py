@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.http import Http404
+from django.http import Http404, JsonResponse
 from django.views.generic import ListView
 from django.shortcuts import redirect, render
 
@@ -24,22 +24,18 @@ def garantia_policy(request):
 def soli_deneg (request):
   return render(request, '_partials/requestDenied.html')
 
-
-# # def principal(request):
-# #     comentarios = Comentario.objects.all()
-# #     tt = TipoTrabajo.objects.all()
-# #     return render(request, 'pagprincipal.html', {'comentarios':comentarios, 'tipoTrabajos':tt})
-
-# # def turnos_calendar(request):
-# #     turnos = Turno.objects.all()
-# #     return render(request, 'turno_list.html', {'turnos': turnos, 'form': TurnoForm(request.user.id)})
-
-
 # ------------------------------- Tipos de servicios --------------------------------
 class TipoServiciosView(ListView):
   model = ServiceType
   context_object_name = 'servicios'
   template_name = "panels/servicios/servicios.html"
+
+def getAllServices(request):
+  data = list(ServiceType.objects.values('id', 'serName'))
+  return JsonResponse({'data': data})
+
+# Función que devuelva un json con los datos de todos los servicios (de momento, después será con un límite [n] -> para hacerlo paginado)
+# https://stackoverflow.com/questions/67723387/fetch-data-from-django-backend-having-parts-of-dynamic-url-private
 
 # ------------------------------- Turnos --------------------------------
 # def turn(request):

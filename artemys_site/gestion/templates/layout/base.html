@@ -11,6 +11,8 @@
     {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    {# Load JavaScript from Fullcalendar #}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     {% load static %}
 
@@ -18,8 +20,6 @@
 
     <link rel="stylesheet" href="{% static 'css/style.css' %} ">
     <link rel="shortcut icon" href="{% static 'img/logoPequenio.png' %}" type="image/x-icon">
-
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     <title>{% block title %}Artemys{% endblock %}</title>
   </head>
@@ -35,6 +35,7 @@
     
     <script type="text/javascript">
       const $navBar = document.getElementById('navbarHeader')
+      const $formTurn = document.getElementById('form_turn_modal')
       
       const sizeBreakPoint = () => {
         if (window.innerWidth >= 992 && $navBar.classList.contains('bg-secondary')) {
@@ -111,28 +112,22 @@
           */
 
           dateClick: function(info) {
-            console.log(info, info.jsEvent)
-            console.log('Clicked on: ' + info.dateStr);
-            console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            console.log('Current view: ' + info.view.type);
-            // change the day's background color just for fun
-            // info.dayEl.style.backgroundColor = 'red';
-            // mostrar un modal con la info de la fecha seleccionada
-            const favDialog = document.getElementById("modalTurn");
-            // favDialog.querySelector('h3').innerText = info.dateStr
-            // 2024-08-09T00:00:00-03:00 -> dividir en
-            /*
-            '2024-08-09T00:00:00-03:00' -> cadena
-            ['2024-08-09', '00:00:00-03:00'] -> dividirlo por 'T'
-            '00:00:00-03:00' --cortar la cadena por '-'--> '00:00:00'
-            Necesario ['2024-08-09', '00:00:00']
-            usar los valores para los inputs */
-            favDialog.showModal()
+            const favDialog = document.getElementById("modalTurn")
+            if (Date.now() <= info.date.getTime()) {
+              favDialog.showModal()
+              if (!info.dateStr.includes('T'))
+                $formTurn.turDate.value = info.dateStr
+              else {
+                const listCad = info.dateStr.slice(0,-6).split('T')
+                $formTurn.turDate.value = listCad[0]
+                $formTurn.turHrFrom.value = listCad[1]
+              }
+            }
           }
         });
         calendar.render();
       }
-      // buscar forma para pasar una funcion como parametro
+
       const modalShow = () => {
         const updateButton = document.getElementById("btnCalendar");
         const favDialog = document.getElementById("modalCalendar");
@@ -149,17 +144,33 @@
       }
 
       const modalTurnShow = (dateStr='') => {
-        const updateButton = document.getElementById("btnTurn");
-        const favDialog = document.getElementById("modalTurn");
+        const updateBtn = document.getElementById("btnTurn")
+        const favDialog = document.getElementById("modalTurn")
+        const closeBtn = favDialog.querySelector('.modal-close')
   
-        updateButton.addEventListener("click", () => {
+        updateBtn.addEventListener("click", () => {
           favDialog.showModal()
         });
 
         favDialog.addEventListener("click", ev => {
-          if (ev.target === favDialog)
+          if (ev.target === favDialog || ev.target === closeBtn)
             favDialog.close()
         })
+      }
+
+      function serviceTypeData() {
+        const $selectTurn = $formTurn.serviceType
+        fetch("{% url 'lista_servicios' %}")
+          .then(res => res.json())
+          .then(result => {
+            const { data } = result
+            data.forEach(el => {
+              const $option = document.createElement('option')
+              $option.value = el.id
+              $option.innerText = el.serName
+              $selectTurn.appendChild($option)
+            })
+          })
       }
     
       document.addEventListener('DOMContentLoaded', () => {
@@ -168,6 +179,7 @@
         {% if request.user.is_authenticated %}
           modalShow();
           modalTurnShow();
+          serviceTypeData();
         {% endif %}
       })
     

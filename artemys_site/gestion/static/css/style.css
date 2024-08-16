@@ -73,7 +73,7 @@ dialog {
 }
 
 .btn {
-  padding: 9px 25px;
+  padding: 6px 20px;
   font-size: var(--bs-body-font-size);
   letter-spacing: 1px;
   border: none;
@@ -211,7 +211,6 @@ dialog {
   } */
 }
 
-
 .input-control{
   height: 2rem;
   width: 100%;
@@ -225,6 +224,10 @@ dialog {
   &:focus {
     outline: none;
     border-color: rgba(0, 0, 0, .1);
+  }
+
+  & > option {
+    background-color: #ffe1d2;
   }
 }
 
@@ -329,6 +332,10 @@ dialog {
   
   &:hover {
     color: rgba(189, 8, 8, 0.4);
+  }
+
+  & > svg {
+    pointer-events: none;
   }
 }
 

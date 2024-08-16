@@ -38,7 +38,7 @@
         </ul>
         <div class="d-flex w-fit mx-auto mx-lg-0">
           {% if request.user.is_authenticated %}
-            <a class="btn btn-primary" href="{% url 'logout' %}">Desconectarse</a>
+            <a class="btn btn-outline-primary" href="{% url 'logout' %}">Desconectarse</a>
           {% elif request.resolver_match.url_name != 'login' %}
           {% comment %} pasar a un modal {% endcomment %}
             <a class="btn btn-primary" href="{% url 'login' %}">Iniciar Sesion</a>
