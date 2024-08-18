@@ -14,13 +14,11 @@
         <div class="col-lg-6">
           <h1 class="display-6 fw-bold lh-1 mb-3">¿Ya nos conocías?</h1>
           <p class="lead mb-3">Trabajamos unicamente con profesionales altamente capacitados y productos de la mas alta calidad. Pedinos tu turno y veni a cuidar y arreglas tus manos.</p>
-          {% with direction="denegado" %}
-            {% if request.user.is_authenticated %}
-              {% with direction="turno" %}{% endwith %}
-            {% endif %}
-            {% comment %} {% url direction %} {% endcomment %}
+          {% if request.user.is_authenticated %}
+            <a class="btn btn-outline-primary" href="{% url 'turno' %}" >Sacar Turno</a>
+          {% else %}
             <a class="btn btn-outline-primary" href="{% url 'denegado' %}" >Sacar Turno</a>
-          {% endwith %}
+          {% endif %}
         </div>
       </div>
     </div>

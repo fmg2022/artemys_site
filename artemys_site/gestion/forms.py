@@ -72,7 +72,7 @@ class ProfileForm(ModelForm):
     exclude = ["user", "isActive"]
 
 class CustomUserForm(UserCreationForm):
-  def __init__(self, *args, **kwargs):
+  def __init__(self, *args, **kwargs) -> None:
     super().__init__(*args, **kwargs)
     for visible in self.visible_fields():
       visible.field.widget.attrs['class'] = 'input-control'
@@ -130,26 +130,32 @@ class CustomUserForm(UserCreationForm):
     return user
 
 class TurnForm(ModelForm):
+  def __init__(self, *args, **kwargs ) -> None:
+    super().__init__(*args, **kwargs)
+    for visible in self.visible_fields():
+      visible.field.widget.attrs['class'] = 'input-control'
+
   class Meta:
     model = Turn
     fields = ['turDate', 'turHrFrom', 'serviceType']
     widgets = {
-      'turFecha': NumberInput(
+      'turDate': DateInput(
         attrs={
           'type': 'date',
           'min': date.today()
         },
       ),
-      'turHrDesde': TimeInput(
+      'turHrFrom': TimeInput(
         attrs={
           'type': 'time',
-          'min':'08:59',
-          'max':'18:00:01',
+          'min': '09:00',
+          'max': '18:00',
+          'step': '1800'
         }
       ),
     }
     labels = {
       'turDate': 'Fecha',
-      'turHrTo': 'Hora desde',
+      'turHrFrom': 'Hora desde',
       'serviceType': 'Servicio',
     }

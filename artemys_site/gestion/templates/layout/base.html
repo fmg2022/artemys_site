@@ -53,6 +53,13 @@
       }
       
       const calendar = () => {
+        let eventos = []
+        fetch("{% url 'turnos' %}")
+          .then(res => res.json())
+          .then(result => {
+            console.log(result)
+          })
+
         const calendarEl = document.getElementById('calendar');
         const calendar = new FullCalendar.Calendar(calendarEl, {
           themeSystem: 'bootstrap5',
@@ -64,6 +71,7 @@
           },
           height: 'auto',
           dayMaxEvents: true,
+          //events: [],
           /*
             // https://fullcalendar.io/docs/event-object
             // https://fullcalendar.io/docs/event-parsing

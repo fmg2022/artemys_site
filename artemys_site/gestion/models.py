@@ -29,7 +29,7 @@ class Comment (models.Model):
   comDateTime = models.DateTimeField(auto_now_add=True, null=True, blank=True)
   isActive = models.BooleanField(default=True)
 
-  profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+  profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name='comments')
 
   class Meta:
     ordering = ['comDateTime']
@@ -54,11 +54,11 @@ class Turn(models.Model):
   turHrFrom = models.TimeField()
   isActive = models.BooleanField(default=True)
 
-  serviceType = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True)
-  profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
+  serviceType = models.ForeignKey(ServiceType, on_delete=models.SET_NULL, null=True, related_name='turns')
+  profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, related_name="turns")
 
   def get_absolute_url(self):
     return reverse("turnoInfo", kwargs={"pk": self.pk})
 
   def __str__(self):
-    self.turDate
+    return self.turDate.strftime('%d/%m/%Y') + ', ' + self.turHrFrom.strftime('%H:%M')

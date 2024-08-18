@@ -33,5 +33,6 @@ urlpatterns = [
     path("reset/complete/", PasswordResetCompleteView.as_view(template_name = "panels/passwordReset/psw_reset_complete.html"), name= "password_reset_complete"),
 
   # Turnos
-  
+    path("turno/", views.setNewTurn, name="turno"),
+    path("turnos/", views.getMyTurns, name="turnos")
 ]

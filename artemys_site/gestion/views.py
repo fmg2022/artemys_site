@@ -1,10 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.http import Http404, JsonResponse
 from django.views.generic import ListView
 from django.shortcuts import redirect, render
 
-from gestion.models import ServiceType, Profile
+from gestion.models import ServiceType, Profile, Turn
 from gestion.forms import CustomUserForm, ProfileForm, TurnForm
 
 
@@ -38,9 +39,33 @@ def getAllServices(request):
 # https://stackoverflow.com/questions/67723387/fetch-data-from-django-backend-having-parts-of-dynamic-url-private
 
 # ------------------------------- Turnos --------------------------------
-# def turn(request):
-#   form = TurnForm()
-#   return render(request, "form.html", {'form': form})
+def setNewTurn(request):
+  profile = Profile.objects.get(user__id=request.user.id)
+  if request.method == 'POST':
+    form = TurnForm(request.POST)
+    if form.is_valid():
+      turn = form.save(commit=False)
+      turn.turDate = form.cleaned_data['turDate']
+      turn.turHrFrom = form.cleaned_data['turHrFrom']
+      # obtener del 'serviceType' el tiempo 'serTime', de ahí sumarlos
+      # https://stackoverflow.com/questions/2780897/python-summing-up-time
+      # validar si el tiempo establecido
+      turn.serviceType = form.cleaned_data['serviceType']
+      turn.profile = profile
+      turn.save()
+      return redirect('inicio')
+  else:
+    form = TurnForm()
+  return render(request, "panels/turnos/turn.html", {'form': form})
+
+def getMyTurns(request):
+  try:
+    profile = Profile.objects.get(user__id=request.user.id)
+    turns = list(Turn.objects.filter(profile=profile).values('turDate', 'turHrFrom', 'serviceType'))
+    # necesito obtener el tiempo 'serTime' en la consulta
+  except ObjectDoesNotExist:
+    turns = None
+  return JsonResponse({'data': turns})
 
 # ----------------------------------- Perfiles -------------------------------------
 def register(request):
