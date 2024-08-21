@@ -1,6 +1,7 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import F
 from django.http import Http404, JsonResponse
 from django.views.generic import ListView
 from django.shortcuts import redirect, render
@@ -53,16 +54,15 @@ def setNewTurn(request):
       turn.serviceType = form.cleaned_data['serviceType']
       turn.profile = profile
       turn.save()
-      return redirect('inicio')
+      return redirect('index')
   else:
     form = TurnForm()
   return render(request, "panels/turnos/turn.html", {'form': form})
 
 def getMyTurns(request):
   try:
-    profile = Profile.objects.get(user__id=request.user.id)
-    turns = list(Turn.objects.filter(profile=profile).values('turDate', 'turHrFrom', 'serviceType'))
-    # necesito obtener el tiempo 'serTime' en la consulta
+    profile = Profile.objects.values('id').get(user__id=request.user.id)
+    turns = list(Turn.objects.values('serviceType__serName', 'turDate', 'turHrFrom', 'serviceType__serTime').filter(profile_id=profile['id']))
   except ObjectDoesNotExist:
     turns = None
   return JsonResponse({'data': turns})
@@ -80,7 +80,7 @@ def register(request):
 
       login(request, user)
       messages.success(request, f'Usuario {user} ha sido creado')
-      return redirect('inicio')
+      return redirect('index')
   else:
     formularios = [CustomUserForm(), ProfileForm()]
   return render(request, 'panels/perfiles/register.html', {'forms': formularios})

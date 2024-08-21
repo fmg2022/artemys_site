@@ -2,7 +2,7 @@
 
 {% block modal_content %}
   <h2 class="text-center py-3 m-0">Nuevo Turno</h2>
-  <form class="d-flex flex-column gap-3 pb-3 px-sm-2 px-md-4" autocomplete="off" method="POST" id="form_turn_modal">
+  <form class="d-flex flex-column gap-3 pb-3 px-sm-2 px-md-4" autocomplete="off" method="POST" action="{% url 'turno' %}" id="form_turn_modal">
     {% csrf_token %}
     <label class="fs-6 text-start">
       Fecha:

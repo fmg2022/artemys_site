@@ -57,7 +57,15 @@
         fetch("{% url 'turnos' %}")
           .then(res => res.json())
           .then(result => {
-            console.log(result)
+            const data = result.data
+            const endDate = new Date()
+            data.forEach(dcc => {
+              const startDate = new Date(`${dcc.turDate}T${dcc.turHrFrom}`)
+              const [hr, mt] = dcc.serviceType__serTime.split(':')
+              const endDate = new Date(hr*3600000 + mt* 60000 + startDate.getTime())
+              
+              eventos.push({title: dcc['serviceType__serName'], start: startDate, end:endDate})
+            })
           })
 
         const calendarEl = document.getElementById('calendar');
@@ -71,53 +79,9 @@
           },
           height: 'auto',
           dayMaxEvents: true,
-          //events: [],
-          /*
-            // https://fullcalendar.io/docs/event-object
-            // https://fullcalendar.io/docs/event-parsing
-           events: [
-            {
-              title: 'All Day Event',
-              start: '2024-08-01',
-              textColor: '',
-              backgroundColor: '',
-            },
-            {
-              title: 'Long Event',
-              start: '2024-08-07',
-              end: '2024-08-10'
-            },
-            {
-              groupId: '999',
-              title: 'Repeating Event',
-              start: '2024-08-09T16:00:00'
-            },
-            {
-              groupId: '999',
-              title: 'Repeating Event',
-              start: '2024-08-16T16:00:00'
-            },
-            {
-              title: 'Conference',
-              start: '2024-08-11',
-              end: '2024-08-13'
-            },
-            {
-              title: 'Meeting',
-              start: '2024-08-12T10:30:00',
-              end: '2024-08-12T12:30:00'
-            },
-            {
-              title: 'Birthday Party',
-              start: '2024-08-13T07:00:00'
-            },
-            {
-              title: 'Click for Google',
-              url: 'https://google.com/',
-              start: '2024-08-28'
-            }
-          ]
-          */
+          events: eventos,
+          // https://fullcalendar.io/docs/events-json-feed
+          // ver forma de usar solo el link para pedir los datos mediante el
 
           dateClick: function(info) {
             const favDialog = document.getElementById("modalTurn")
