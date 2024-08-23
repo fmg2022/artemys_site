@@ -108,6 +108,22 @@ dialog {
   gap: 0.325rem;
 }
 
+.fc-day {
+  cursor: pointer;
+
+  a .fc-event-title {
+    font-weight: 300;
+  }
+  
+  a:hover {
+    transform: scale(1.1);
+
+    .fc-event-title {
+      font-weight: 600;
+    }
+  }
+}
+
 /* SITE STYLE */
 .border-primary-site {
   border-color: rgb(159, 8, 45) !important;
@@ -336,16 +352,6 @@ dialog {
 
   & > svg {
     pointer-events: none;
-  }
-}
-
-.fc-day {
-  cursor: pointer;
-  
-  &:hover a {
-    /* color: rgba(159, 8, 45, .9); */
-    color: blue;
-    transform: scale(1.1);
   }
 }
 

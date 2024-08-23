@@ -1,10 +1,11 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import F
 from django.http import Http404, JsonResponse
 from django.views.generic import ListView
 from django.shortcuts import redirect, render
+
+from datetime import datetime, timedelta
 
 from gestion.models import ServiceType, Profile, Turn
 from gestion.forms import CustomUserForm, ProfileForm, TurnForm
@@ -62,10 +63,17 @@ def setNewTurn(request):
 def getMyTurns(request):
   try:
     profile = Profile.objects.values('id').get(user__id=request.user.id)
-    turns = list(Turn.objects.values('serviceType__serName', 'turDate', 'turHrFrom', 'serviceType__serTime').filter(profile_id=profile['id']))
+    results = list(Turn.objects.values('serviceType__serName', 'turDate', 'turHrFrom', 'serviceType__serTime').filter(profile_id=profile['id']))
+    turns = []
+    for fila in results:
+      startDate = datetime.combine(fila['turDate'], fila['turHrFrom'])
+      time = fila['serviceType__serTime']
+      endDate = startDate +  timedelta(hours=time.hour, minutes=time.minute, seconds=time.second)
+      el = {'title': fila['serviceType__serName'], 'start': startDate, 'end': endDate}
+      turns.append(el)
   except ObjectDoesNotExist:
     turns = None
-  return JsonResponse({'data': turns})
+  return JsonResponse(turns, safe=False)
 
 # ----------------------------------- Perfiles -------------------------------------
 def register(request):

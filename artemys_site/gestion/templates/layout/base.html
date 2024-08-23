@@ -53,7 +53,7 @@
       }
       
       const calendar = () => {
-        let eventos = []
+        /*let eventos = []
         fetch("{% url 'turnos' %}")
           .then(res => res.json())
           .then(result => {
@@ -66,7 +66,7 @@
               
               eventos.push({title: dcc['serviceType__serName'], start: startDate, end:endDate})
             })
-          })
+          })*/
 
         const calendarEl = document.getElementById('calendar');
         const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -79,7 +79,7 @@
           },
           height: 'auto',
           dayMaxEvents: true,
-          events: eventos,
+          events: "/turnos",
           // https://fullcalendar.io/docs/events-json-feed
           // ver forma de usar solo el link para pedir los datos mediante el
 
@@ -95,6 +95,12 @@
                 $formTurn.turHrFrom.value = listCad[1]
               }
             }
+          },
+          eventClick: function(info) {
+            alert('Event: ' + info.event.title);
+            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+            alert('View: ' + info.view.type);
+            // hacer un modal (sin form) para mostrar la info y un boton para cancelar el turno siempre que la fecha seleccionada sea mayor o igual a la actual.
           }
         });
         calendar.render();
