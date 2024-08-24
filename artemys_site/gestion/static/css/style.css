@@ -13,7 +13,6 @@ textarea {
 }
 
 dialog {
-  min-height: 50%;
   padding: 0;
   scrollbar-width: thin;
   scrollbar-color: var(--bs-primary-rgba) transparent;
@@ -24,14 +23,12 @@ dialog {
 
   &:modal {
     box-shadow: 8px 6px 2rem 3px rgba(0, 0, 0, 0.15);
-    /* editar */
     background-color: var(--bg-light-color);
     border: 1px solid rgb(252, 228, 215);
     border-radius: 10px;
   }
 
   &::backdrop {
-    /* editar */
     background-color: rgba(58, 4, 29, 0.45)
   }
 

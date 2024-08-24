@@ -25,7 +25,7 @@
   </head>
 
   <body>
-    {% include "_partials/header.html" with id_btn_modal1="btnCalendar" idModal1="modalCalendar" id_btn_modal2="btnTurn" idModal2="modalTurn" %}
+    {% include "_partials/header.html" with id_btn_modal1="btnCalendar" idModal1="modalCalendar" id_btn_modal2="btnTurn" idModal2="modalTurn" idModal3="modalTurnInfo" %}
 
     <main class="d-flex flex-column bg-body w-100">
       {% block main_content %}{% endblock main_content %}
@@ -53,21 +53,6 @@
       }
       
       const calendar = () => {
-        /*let eventos = []
-        fetch("{% url 'turnos' %}")
-          .then(res => res.json())
-          .then(result => {
-            const data = result.data
-            const endDate = new Date()
-            data.forEach(dcc => {
-              const startDate = new Date(`${dcc.turDate}T${dcc.turHrFrom}`)
-              const [hr, mt] = dcc.serviceType__serTime.split(':')
-              const endDate = new Date(hr*3600000 + mt* 60000 + startDate.getTime())
-              
-              eventos.push({title: dcc['serviceType__serName'], start: startDate, end:endDate})
-            })
-          })*/
-
         const calendarEl = document.getElementById('calendar');
         const calendar = new FullCalendar.Calendar(calendarEl, {
           themeSystem: 'bootstrap5',
@@ -80,8 +65,6 @@
           height: 'auto',
           dayMaxEvents: true,
           events: "/turnos",
-          // https://fullcalendar.io/docs/events-json-feed
-          // ver forma de usar solo el link para pedir los datos mediante el
 
           dateClick: function(info) {
             const favDialog = document.getElementById("modalTurn")
@@ -97,22 +80,41 @@
             }
           },
           eventClick: function(info) {
-            alert('Event: ' + info.event.title);
-            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-            alert('View: ' + info.view.type);
-            // hacer un modal (sin form) para mostrar la info y un boton para cancelar el turno siempre que la fecha seleccionada sea mayor o igual a la actual.
+            // alert(`Event: ${} (${info.event.id}), ${info.event.start} hasta ${info.event.end}`);
+            // id_btn_modal3="btnTurnInfo"
+            const options = {
+              timeStyle: 'short',
+              hour12: false
+            };
+            const $modal = document.getElementById("modalTurnInfo")
+            $modal.querySelector('h2').innerText = info.event.title
+            $modal.querySelector('#tiempo_1').innerText = info.event.start.toLocaleDateString(undefined, {dateStyle: 'long'})
+            $modal.querySelector('#tiempo_2').innerText = `De ${info.event.start.toLocaleTimeString(undefined, options)}hr hasta ${info.event.end.toLocaleTimeString(undefined, options)}hr`
+            if (Date.now() > info.event.start) {
+              $modal.querySelector('a').classList.add('visually-hidden')
+            } else {
+              const $a = $modal.querySelector('a')
+              $a.classList.remove('visually-hidden')
+              $a.href = `{{ request.scheme }}://{{ request.get_host }}/turno/cancelar/${info.event.id}`
+            }
+
+            $modal.showModal()
+            $modal.addEventListener("click", ev => {
+              if (ev.target === $modal)
+                $modal.close()
+            })
           }
         });
         calendar.render();
       }
 
-      const modalShow = () => {
-        const updateButton = document.getElementById("btnCalendar");
-        const favDialog = document.getElementById("modalCalendar");
+      const modalShow = (btnId, modalId, callback = null) => {
+        const updateButton = document.getElementById(btnId);
+        const favDialog = document.getElementById(modalId);
   
         updateButton.addEventListener("click", () => {
           favDialog.showModal()
-          calendar()
+          callback()
         });
 
         favDialog.addEventListener("click", ev => {
@@ -121,7 +123,7 @@
         })
       }
 
-      const modalTurnShow = (dateStr='') => {
+      const modalTurnShow = () => {
         const updateBtn = document.getElementById("btnTurn")
         const favDialog = document.getElementById("modalTurn")
         const closeBtn = favDialog.querySelector('.modal-close')
@@ -155,7 +157,7 @@
         sizeBreakPoint();
         toasterShow();
         {% if request.user.is_authenticated %}
-          modalShow();
+          modalShow("btnCalendar", "modalCalendar", calendar);
           modalTurnShow();
           serviceTypeData();
         {% endif %}

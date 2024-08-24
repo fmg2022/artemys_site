@@ -34,5 +34,6 @@ urlpatterns = [
 
   # Turnos
     path("turno/", views.setNewTurn, name="turno"),
-    path("turnos/", views.getMyTurns, name="turnos")
+    path("turnos/", views.getMyTurns, name="turnos"),
+    path("turno/cancelar/<int:pk>", views.deleteTurn, name="turno_cancelar"),
 ]

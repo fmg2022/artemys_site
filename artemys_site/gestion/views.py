@@ -60,19 +60,30 @@ def setNewTurn(request):
     form = TurnForm()
   return render(request, "panels/turnos/turn.html", {'form': form})
 
+def deleteTurn(request, pk):
+  try:
+    turn = Turn.objects.get(pk=pk)
+    turn.isActive = False
+    turn.save()
+    messages.success(request, 'El turno ha sido cancelado')
+  except:
+    messages.error(request, 'No es posible cancelar el turno')
+
+  return redirect('index')
+
 def getMyTurns(request):
   try:
     profile = Profile.objects.values('id').get(user__id=request.user.id)
-    results = list(Turn.objects.values('serviceType__serName', 'turDate', 'turHrFrom', 'serviceType__serTime').filter(profile_id=profile['id']))
+    results = list(Turn.objects.values('id', 'serviceType__serName', 'turDate', 'turHrFrom', 'serviceType__serTime').filter(profile_id=profile['id']).filter(isActive=True))
     turns = []
     for fila in results:
       startDate = datetime.combine(fila['turDate'], fila['turHrFrom'])
       time = fila['serviceType__serTime']
       endDate = startDate +  timedelta(hours=time.hour, minutes=time.minute, seconds=time.second)
-      el = {'title': fila['serviceType__serName'], 'start': startDate, 'end': endDate}
+      el = {'id': fila['id'], 'title': fila['serviceType__serName'], 'start': startDate, 'end': endDate}
       turns.append(el)
   except ObjectDoesNotExist:
-    turns = None
+    turns = {'401': 'Sin autorización'}
   return JsonResponse(turns, safe=False)
 
 # ----------------------------------- Perfiles -------------------------------------

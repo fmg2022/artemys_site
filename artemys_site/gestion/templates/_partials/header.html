@@ -22,10 +22,10 @@
           </li>
           {% if request.user.is_authenticated %}
             <li class="nav-item text-center">
-              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal1 }}">Mis Turnos</button>
+              <button class="btn btn-linked nav-link text-primary fw-500 w-100 py-2" id="{{ id_btn_modal1 }}">Mis Turnos</button>
             </li>
             <li class="nav-item text-center">
-              <button class="btn btn-linked nav-link text-primary fw-500 w-100" id="{{ id_btn_modal2 }}">Pedir Turno</button>
+              <button class="btn btn-linked nav-link text-primary fw-500 w-100 py-2" id="{{ id_btn_modal2 }}">Pedir Turno</button>
             </li>
           {% else %}
             <li class="nav-item text-center">
@@ -52,4 +52,5 @@
 {% if request.user.is_authenticated %}
   {% include "components/modals/calendar.html" with id_modal=idModal1 %}
   {% include "components/modals/turn.html" with id_modal=idModal2 %}
+  {% include "components/modals/turnInfo.html" with id_modal=idModal3 %}
 {% endif %}
